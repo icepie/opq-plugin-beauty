@@ -54,6 +54,12 @@ func friendMsgHandle(botQQ int64, packet OPQBot.FriendMsgPack) {
 		err := json.Unmarshal([]byte(packet.Content), &fpc)
 		if err != nil {
 			log.Println(err)
+			Bot.Send(OPQBot.SendMsgPack{
+				SendToType: OPQBot.SendToTypeFriend,
+				ToUserUid:  packet.FromUin,
+				Content:    OPQBot.SendTypeTextMsgContent{Content: "分析失败啦～换张图试试吧"},
+			})
+			return
 		}
 
 		if fpc.Content == nil {
@@ -105,6 +111,12 @@ func groupMsgHandle(botQQ int64, packet OPQBot.GroupMsgPack) {
 		err := json.Unmarshal([]byte(packet.Content), &gpc)
 		if err != nil {
 			log.Println(err)
+			Bot.Send(OPQBot.SendMsgPack{
+				SendToType: OPQBot.SendToTypeGroup,
+				ToUserUid:  packet.FromGroupID,
+				Content:    OPQBot.SendTypeTextMsgContent{Content: "分析失败啦～换张图试试吧"},
+			})
+			return
 		}
 
 		if gpc.Content == nil {
