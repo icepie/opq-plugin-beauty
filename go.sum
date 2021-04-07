@@ -1,0 +1,14 @@
+github.com/asmcos/requests v0.0.0-20210118082303-cb8f46dd3767 h1:/2W6hzSR62YUThJdMsKkx4n1kpe05cH8T21Jk0j3msA=
+github.com/asmcos/requests v0.0.0-20210118082303-cb8f46dd3767/go.mod h1:2W5PB6UTVRBypeouEebhwOJrDZOfJvPwMP1mtD8ZXM4=
+github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
+github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/goinggo/mapstructure v0.0.0-20140717182941-194205d9b4a9 h1:wqckanyE9qc/XnvnybC6SHOb8Nyd62QXAZOzA8twFig=
+github.com/goinggo/mapstructure v0.0.0-20140717182941-194205d9b4a9/go.mod h1:64ikIrMv84B+raz7akXOqbF7cK3/OQQ/6cClY10oy7A=
+github.com/gorilla/websocket v1.4.2 h1:+/TMaTYc4QFitKJxsQ7Yye35DkWvkdLcvGKqM+x0Ufc=
+github.com/gorilla/websocket v1.4.2/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
+github.com/graarh/golang-socketio v0.0.0-20170510162725-2c44953b9b5f h1:utzdm9zUvVWGRtIpkdE4+36n+Gv60kNb7mFvgGxLElY=
+github.com/graarh/golang-socketio v0.0.0-20170510162725-2c44953b9b5f/go.mod h1:8gudiNCFh3ZfvInknmoXzPeV17FSH+X2J5k2cUPIwnA=
+github.com/icepie/xiaoice-beauty v0.0.0-20210407073250-96fdd2dd9eb3 h1:HM+rywJKisq+nFgfSLudVaFmzjM1y8PN6k2d7cqnqjc=
+github.com/icepie/xiaoice-beauty v0.0.0-20210407073250-96fdd2dd9eb3/go.mod h1:Fp1dE7QXVQ4X3ft57wDTRDa0GKqwVxD5vZIgavnHaTg=
+github.com/mcoo/OPQBot v0.0.7 h1:yXsU4zwuuOs73lL2K0jbVFXALky6eNr9PT90s8n8gXI=
+github.com/mcoo/OPQBot v0.0.7/go.mod h1:8t0hzq2pgQ53qhmrhoQ7XKw5WD4cIFGAnfDerwzsrIE=
