@@ -56,6 +56,10 @@ func friendMsgHandle(botQQ int64, packet OPQBot.FriendMsgPack) {
 			log.Println(err)
 		}
 
+		if fpc.Content == nil {
+			return
+		}
+
 		if strings.Contains(fpc.Content.(string), "颜") {
 
 			for i := 0; i < len(fpc.Friendpic); i++ {
@@ -101,6 +105,10 @@ func groupMsgHandle(botQQ int64, packet OPQBot.GroupMsgPack) {
 		err := json.Unmarshal([]byte(packet.Content), &gpc)
 		if err != nil {
 			log.Println(err)
+		}
+
+		if gpc.Content == nil {
+			return
 		}
 
 		if strings.Contains(gpc.Content.(string), "颜") {
