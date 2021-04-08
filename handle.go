@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/url"
 	"strings"
 
 	"github.com/mcoo/OPQBot"
@@ -54,11 +55,6 @@ func friendMsgHandle(botQQ int64, packet OPQBot.FriendMsgPack) {
 		err := json.Unmarshal([]byte(packet.Content), &fpc)
 		if err != nil {
 			log.Println(err)
-			Bot.Send(OPQBot.SendMsgPack{
-				SendToType: OPQBot.SendToTypeFriend,
-				ToUserUid:  packet.FromUin,
-				Content:    OPQBot.SendTypeTextMsgContent{Content: "分析失败啦～换张图试试吧"},
-			})
 			return
 		}
 
@@ -79,6 +75,12 @@ func friendMsgHandle(botQQ int64, packet OPQBot.FriendMsgPack) {
 				rte, err := IB.AnalyzeImgByUrl(fpc.Friendpic[i].Url)
 				if err != nil {
 					log.Println("error: ", err)
+					Bot.Send(OPQBot.SendMsgPack{
+						SendToType: OPQBot.SendToTypeFriend,
+						ToUserUid:  packet.FromUin,
+						Content:    OPQBot.SendTypeTextMsgContent{Content: "分析失败啦～换张图试试吧"},
+					})
+					return
 				}
 
 				Bot.Send(OPQBot.SendMsgPack{
@@ -87,13 +89,20 @@ func friendMsgHandle(botQQ int64, packet OPQBot.FriendMsgPack) {
 					Content:    OPQBot.SendTypeTextMsgContent{Content: buildResult(rte)},
 				})
 
-				if rte.Content.Metadata.Reportimgurl != "" {
-					Bot.Send(OPQBot.SendMsgPack{
-						SendToType: OPQBot.SendToTypeFriend,
-						ToUserUid:  packet.FromUin,
-						Content:    OPQBot.SendTypePicMsgByUrlContent{Content: "图片报告来了", PicUrl: rte.Content.Metadata.Reportimgurl},
-					})
+				u, err := url.Parse(rte.Content.Metadata.Reportimgurl)
+				if err != nil {
+					log.Println("error: ", err)
+					return
 				}
+
+				// 这玩意ssl证书有问题
+				u.Scheme = "http"
+
+				Bot.Send(OPQBot.SendMsgPack{
+					SendToType: OPQBot.SendToTypeFriend,
+					ToUserUid:  packet.FromUin,
+					Content:    OPQBot.SendTypePicMsgByUrlContent{Content: "图片报告来了", PicUrl: u.String()},
+				})
 			}
 
 		}
@@ -110,12 +119,6 @@ func groupMsgHandle(botQQ int64, packet OPQBot.GroupMsgPack) {
 		gpc := GroupPicContent{}
 		err := json.Unmarshal([]byte(packet.Content), &gpc)
 		if err != nil {
-			log.Println(err)
-			Bot.Send(OPQBot.SendMsgPack{
-				SendToType: OPQBot.SendToTypeGroup,
-				ToUserUid:  packet.FromGroupID,
-				Content:    OPQBot.SendTypeTextMsgContent{Content: "分析失败啦～换张图试试吧"},
-			})
 			return
 		}
 
@@ -136,6 +139,12 @@ func groupMsgHandle(botQQ int64, packet OPQBot.GroupMsgPack) {
 				rte, err := IB.AnalyzeImgByUrl(gpc.GroupPic[i].Url)
 				if err != nil {
 					log.Println("error: ", err)
+					Bot.Send(OPQBot.SendMsgPack{
+						SendToType: OPQBot.SendToTypeGroup,
+						ToUserUid:  packet.FromGroupID,
+						Content:    OPQBot.SendTypeTextMsgContent{Content: "分析失败啦～换张图试试吧"},
+					})
+					return
 				}
 
 				Bot.Send(OPQBot.SendMsgPack{
@@ -144,13 +153,21 @@ func groupMsgHandle(botQQ int64, packet OPQBot.GroupMsgPack) {
 					Content:    OPQBot.SendTypeTextMsgContent{Content: buildResult(rte)},
 				})
 
-				if rte.Content.Metadata.Reportimgurl != "" {
-					Bot.Send(OPQBot.SendMsgPack{
-						SendToType: OPQBot.SendToTypeGroup,
-						ToUserUid:  packet.FromGroupID,
-						Content:    OPQBot.SendTypePicMsgByUrlContent{Content: "图片报告来了", PicUrl: rte.Content.Metadata.Reportimgurl},
-					})
+				u, err := url.Parse(rte.Content.Metadata.Reportimgurl)
+				if err != nil {
+					log.Println("error: ", err)
+					return
 				}
+
+				// 这玩意ssl证书有问题
+				u.Scheme = "http"
+
+				Bot.Send(OPQBot.SendMsgPack{
+					SendToType: OPQBot.SendToTypeGroup,
+					ToUserUid:  packet.FromGroupID,
+					Content:    OPQBot.SendTypePicMsgByUrlContent{Content: "图片报告来了", PicUrl: u.String()},
+				})
+
 			}
 
 		}
